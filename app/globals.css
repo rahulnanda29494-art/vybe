@@ -218,6 +218,26 @@
     display: none;
   }
 
+  /* Slim bar for panels that scroll inside themselves, like the side rail —
+     hiding it there loses the only hint that the list continues. */
+  .thin-bar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  .thin-bar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .thin-bar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .thin-bar::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+  }
+  .thin-bar:hover::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-brand-1) / 0.55);
+  }
+
   .edge-fade {
     -webkit-mask-image: linear-gradient(
       to right,
