@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   VYBE — design tokens
+   Change these and the entire product re-themes.
+   ============================================================ */
+
+:root {
+  /* type */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* accent — identical in both themes */
+  --c-brand-1: 139 74 255; /* violet   */
+  --c-brand-2: 236 72 153; /* pink     */
+  --c-brand-3: 251 146 60; /* orange   */
+  --c-electric: 56 189 248; /* electric blue */
+  --c-live: 255 74 92;
+
+  /* layout */
+  --header-h: 72px;
+  --rail-w: 252px;
+  --rail-w-mini: 84px;
+}
+
+/* ---------- DARK (primary experience) ---------- */
+.dark {
+  --c-bg: 7 7 11;
+  --c-surface: 15 15 22;
+  --c-elev: 22 22 32;
+  --c-raise: 32 32 45;
+  --c-ink: 244 244 248;
+  --c-dim: 156 156 173;
+  --c-faint: 110 110 128;
+
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --glass: rgb(20 20 30 / 0.62);
+  --glass-menu: rgb(22 22 32 / 0.9);
+  --glass-thin: rgb(255 255 255 / 0.04);
+  --shimmer: rgb(255 255 255 / 0.07);
+
+  --shadow-1: rgb(0 0 0 / 0.55);
+  --shadow-2: rgb(0 0 0 / 0.65);
+
+  --aurora-1: rgb(139 74 255 / 0.22);
+  --aurora-2: rgb(236 72 153 / 0.16);
+  --aurora-3: rgb(56 189 248 / 0.12);
+
+  color-scheme: dark;
+}
+
+/* ---------- LIGHT ---------- */
+.light {
+  --c-bg: 247 246 244;
+  --c-surface: 255 255 255;
+  --c-elev: 255 255 255;
+  --c-raise: 242 241 245;
+  --c-ink: 18 18 26;
+  --c-dim: 104 104 120;
+  --c-faint: 142 142 158;
+
+  --line: rgb(16 16 30 / 0.09);
+  --line-strong: rgb(16 16 30 / 0.16);
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-menu: rgb(255 255 255 / 0.94);
+  --glass-thin: rgb(16 16 30 / 0.03);
+  --shimmer: rgb(16 16 30 / 0.05);
+
+  --shadow-1: rgb(24 20 40 / 0.08);
+  --shadow-2: rgb(24 20 40 / 0.12);
+
+  --aurora-1: rgb(139 74 255 / 0.14);
+  --aurora-2: rgb(236 72 153 / 0.1);
+  --aurora-3: rgb(56 189 248 / 0.1);
+
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    overflow-x: hidden;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Ambient aurora behind everything — gives the dark theme depth. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -20vh -10vw auto;
+    height: 86vh;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(52% 46% at 14% 8%, var(--aurora-1), transparent 62%),
+      radial-gradient(44% 40% at 88% 2%, var(--aurora-2), transparent 64%),
+      radial-gradient(40% 44% at 52% 26%, var(--aurora-3), transparent 68%);
+    filter: blur(6px);
+  }
+
+  ::selection {
+    background: rgb(var(--c-brand-2) / 0.32);
+    color: rgb(var(--c-ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-electric));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+    letter-spacing: -0.028em;
+  }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--c-dim) / 0.5);
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  /* Frosted surface used by the header, rail, modals and dropdowns. */
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid var(--line);
+  }
+
+  /* Denser glass for floating menus, where text sits over other text. */
+  .glass-menu {
+    background: var(--glass-menu);
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid var(--line-strong);
+  }
+
+  .glass-thin {
+    background: var(--glass-thin);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+
+  /* Gradient text — used sparingly, for the wordmark and key headings. */
+  .grad-text {
+    background: linear-gradient(
+      103deg,
+      rgb(var(--c-brand-1)),
+      rgb(var(--c-brand-2)) 52%,
+      rgb(var(--c-brand-3))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* 1px gradient outline without a wrapper element. */
+  .grad-ring {
+    position: relative;
+  }
+  .grad-ring::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      rgb(var(--c-brand-1) / 0.9),
+      rgb(var(--c-brand-2) / 0.5) 45%,
+      transparent 75%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .no-bar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .edge-fade {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 24px,
+      #000 calc(100% - 48px),
+      transparent
+    );
+    mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 48px), transparent);
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    @apply bg-shimmer animate-shimmer;
+  }
+
+  /* Film-grain overlay for generated key art. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
