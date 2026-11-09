@@ -7,7 +7,11 @@
     "dev": "next dev -p 3210",
     "build": "next build",
     "start": "next start -p 3210",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "node server/db/migrate.mjs",
+    "db:migrate:status": "node server/db/migrate.mjs --status",
+    "db:seed": "node server/db/seed.mjs",
+    "db:reset": "node server/db/migrate.mjs --reset && node server/db/seed.mjs --demo"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
