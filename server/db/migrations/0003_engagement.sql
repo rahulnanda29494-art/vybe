@@ -21,8 +21,10 @@ CREATE TABLE video_views (
   traffic_source  text,                             -- 'search', 'home', 'channel', 'external'
   started_at      timestamptz NOT NULL DEFAULT now(),
   completed_at    timestamptz,
-  -- Hour bucket the dedupe index keys on.
-  hour_bucket     timestamptz GENERATED ALWAYS AS (date_trunc('hour', started_at)) STORED
+  -- Hour bucket the dedupe index keys on. Pinned to UTC because date_trunc
+  -- over a timestamptz reads the session TimeZone, which a generated column
+  -- may not do.
+  hour_bucket     timestamp GENERATED ALWAYS AS (date_trunc('hour', started_at AT TIME ZONE 'UTC')) STORED
 );
 CREATE UNIQUE INDEX video_views_dedupe_idx
   ON video_views (video_id, session_hash, hour_bucket);

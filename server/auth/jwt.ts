@@ -22,7 +22,7 @@ export async function verifyPassword(password: string, stored: string): Promise<
 
 /* --------------------------------- JWT --------------------------------- */
 // HS256, no third-party dependency. Access tokens are short-lived (15 min);
-// long sessions are carried by revocable refresh tokens (see schema.sql).
+// long sessions are carried by revocable refresh tokens (see server/db/migrations/0001_core.sql).
 
 export interface Claims {
   sub: string; // user id

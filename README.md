@@ -47,6 +47,27 @@ npm run dev                  # http://localhost:3210
 It runs with an empty `.env.local`. Every key is optional — see below for what
 each one unlocks.
 
+### Database
+
+Accounts, videos, engagement, commerce and moderation live in PostgreSQL 17.
+With `DATABASE_URL` unset the app still runs (accounts fall back to a
+development JSON file), but nothing that needs the schema will work.
+
+```bash
+npm run db:migrate          # apply migrations
+npm run db:seed -- --demo   # reference data + demo accounts
+npm run test                # 18 integration tests against the real database
+npm run db:migrate:status   # applied / pending / changed-after-apply
+```
+
+If you run a portable (zip) PostgreSQL rather than a service, set `PG_BIN`,
+`PG_DATA` and `PG_PORT` in `.env.local` and use `npm run pg:start` /
+`npm run pg:stop`. Moving off the JSON account store?
+`node scripts/import-local-users.mjs` carries those accounts over with their
+password hashes intact.
+
+Schema reference: [docs/DATABASE_DESIGN.md](docs/DATABASE_DESIGN.md).
+
 ## Configuration
 
 | Variable | Default | What it does |

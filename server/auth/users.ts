@@ -7,7 +7,7 @@ import { hashPassword, verifyPassword } from './jwt';
 
 /**
  * Account storage.
- *  - DATABASE_URL set → PostgreSQL `users` table (see server/db/schema.sql).
+ *  - DATABASE_URL set → PostgreSQL `users` table (see server/db/migrations/).
  *  - Development without a database → a JSON file in ./.storage, so sign-up
  *    and sign-in work locally with zero setup. Never used in production.
  */

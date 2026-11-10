@@ -9,7 +9,7 @@ Legend — ✅ done · 🟡 partial · ⬜ not started
 | --- | --- | --- | --- |
 | 1 | Requirements and architecture | ✅ | `docs/` — architecture, database design, decisions, this roadmap |
 | 2 | Project foundation | 🟡 | Next.js 15 + TS strict + Tailwind + lint/typecheck run clean; no CI workflow, no containers yet |
-| 3 | Database and authentication | 🟡 | 5 migrations + runner + seed written; email/password auth with scrypt + HS256 JWT in an httpOnly cookie works. Missing: migrations applied to a live DB (in progress), Google OAuth, email verification, password reset, RBAC enforcement |
+| 3 | Database and authentication | 🟡 | PostgreSQL 17 running locally; all 5 migrations applied from empty, seed loaded, 18 integration tests green. Registration and sign-in verified against the database end to end. Missing: Google OAuth, email verification, password reset, RBAC enforcement in route handlers |
 | 4 | Design system | ✅ | CSS-variable tokens, glass/gradient primitives, responsive 320→1920, keyboard and ARIA passes |
 | 5 | Home and discovery | 🟡 | All discovery screens built and fast, but fed by the YouTube catalogue layer rather than own `videos` rows |
 | 6 | Upload and storage | ⬜ | Multi-step wizard UI exists; resumable multipart upload, validation and upload sessions are the next build |
@@ -25,8 +25,7 @@ Legend — ✅ done · 🟡 partial · ⬜ not started
 
 ## Order of work from here
 
-1. **Apply migrations to the local database and seed it.** Nothing below is
-   verifiable until this runs.
+1. ~~Apply migrations to the local database and seed it.~~ Done 2026-11-10.
 2. **Phase 6 — upload.** Upload sessions, resumable parts, validation,
    Studio wiring. Acceptance: a file leaves the browser, lands in storage,
    and a `videos` row reaches `queued`.
